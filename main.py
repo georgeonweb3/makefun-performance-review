@@ -20,6 +20,8 @@ def main():
     assert text.strip(), "entry is only whitespace"
     assert "\n" not in text and "\r" not in text, "entry must be one line"
     data = text.encode("utf-8")
+    # No trailing newline: the gate is the exact line, nothing after it.
+    assert not data.endswith(b"\n"), "entry must not end with a newline"
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
     with open(OUTPUT_PATH, "wb") as f:
         f.write(data)
